@@ -9,14 +9,13 @@ function [tout,yout] = EulerSolver(f,t,y0)
 % yout is an 3 x N matrix containing the solution
 % at different grid points.
 
-N = length(t); % number of grid points
-h = t(2) - t(1); % step size
+tout = t; % ensures tout is a column vector 
 y0 = y0(:); % ensures y0 is a column vector
-yout = zeros(length(y0), N); % initialize the solution matrix
+yout = zeros(length(y0), length(t)); % initialize the solution matrix
 yout(:, 1) = y0; % set the initial values
-tout = t(:); % ensures tout is a column vector 
 
-for i = 1:N-1
+for i = 1:length(t)-1
+    h = t(i+1) - t(i);
     yout(:, i+1) = yout(:, i) + h*f(t(i), yout(:, i)); % Euler's method
 end
 
